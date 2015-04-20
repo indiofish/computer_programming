@@ -1,18 +1,18 @@
 #include <iostream>
 class printChar
 {
-public:
-  void setChar(char a) {
-    character = a;
-  }
+  public:
+    void setChar(char a) {
+      character = a;
+    }
 
-  int castToInt()
-  {
-    return static_cast<int>(character);
-  }
+    int castToInt()
+    {
+      return static_cast<int>(character);
+    }
 
-private:
-  char character;
+  private:
+    char character;
 };
 
 int main(void)

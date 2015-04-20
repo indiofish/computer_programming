@@ -5,52 +5,53 @@ using namespace std;
 
 class myNum
 {
-public:
-  myNum(int a) {
-    num = a;
-  }
-
-  void setNumber(int a) {
-    num = a;
-  }
-  int getNumber() {
-    return num;
-  }
-
-  string split() {
-    int digit = countMyDigit();
-    int divisor = 1;
-    int n = num;
-    int i;
-    string result;
-
-    for (i = 0; i < digit-1; i++) {
-      divisor *= 10;
+  public:
+    myNum(int a) {
+      num = a;
+    }
+    
+    void setNumber(int a) {
+      num = a;
+    }
+    int getNumber() {
+      return num;
     }
 
-    for (i = 0; i < digit; i++) {
-      result += (n/divisor) + 48;
-      result += "   ";
-      n = n%divisor;
-      divisor = divisor / 10;
+    string split() {
+      int digit = countMyDigit();
+      int divisor = 1;
+      int n = num;
+      int i;
+      string result;
+
+      for (i = 0; i < digit-1; i++) {
+        divisor *= 10;
+      }
+
+      for (i = 0; i < digit; i++) {
+        result += (n/divisor) + 48;
+        result += "   ";
+        n = n%divisor;
+        divisor = divisor / 10;
+      }
+      return result;
     }
-    return result;
-  }
 
-private:
-  int num;
+  private:
+    int num;
 
-  int countMyDigit() {
-    int digits = 0;
-    int n = num;
-    while (n) {
+    int countMyDigit() {
+      int digits = 0;
+      int n = num;
+      while (n) {
         n /= 10;
         digits++;
+      }
+      return digits;
     }
-    return digits;
-  }
 
 };
+
 
 int main(void)
 {
