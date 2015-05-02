@@ -7,7 +7,7 @@ using std::boolalpha;
 
 int main() {
   String s1( "happy" );
-  String s2( "happy" ); 
+  String s2( " birthday" ); 
   String s3;
   std::cout << s1 << std::endl;
   std::cout << s2 << std::endl;
@@ -23,7 +23,8 @@ int main() {
     << "\ns2 <= s1 yields " << ( s2 <= s1 )<<endl;
   std::cout << s1(0,2) << std::endl;
   std::cout << s2(4,0) << std::endl;
-  s1 += "you";
+  s1 += s2;
+  s1 += " to you";
   std::cout << s1 << std::endl;
 
   // test overloaded String empty (!) operator
@@ -31,6 +32,23 @@ int main() {
   if ( !s3 ) {
     cout << "s3 is empty; assigning s1 to s3;" << endl; s3 = s1; 
     // test overloaded assignment
-    cout << "s3 is \"" << s3 << "\""; } 
+    cout << "s3 is \"" << s3 << "\"\n"; 
+  } 
+  std::cout << s3(0) << std::endl;
+
+  //test 
+  String *s4Ptr = new String(s2);
+  std::cout << "testing copy constructor" << std::endl;
+  std::cout << *s4Ptr << std::endl;
+  s1[0] = 'z';
+  s1[6] = 's';
+  std::cout << "after modification" << std::endl;
+  std::cout << s1 << std::endl;
+
+  std::cout << "Attempt to assign 'd' to s1[30] yields " << std::endl;
+  //wft???
+  s1[1000] = 'd';
+  std::cout << s1[1000] << std::endl;
+
   return 0;
 } // end main

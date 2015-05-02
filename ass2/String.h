@@ -11,7 +11,7 @@ class String
   friend istream &operator>>(istream &, String &);
 
 public:
-  //default constructor
+  //default&conversion constructor
   String(const char * = "");
   //copy constructor
   String(const String &);
@@ -31,6 +31,9 @@ public:
   char &operator[](int);
   char operator[](int) const;
 
+  //by setting second parameter default to zero, 
+  //providing only one parameter means end of string.
+  //String operator()(int, int = 0) const;
   String operator()(int, int = 0) const;
   int getLength() const;
 
@@ -47,10 +50,13 @@ private:
 //this causes error
 //ostream& String::operator<<(ostream &out, const String &str)
 //while this doesn't
+//solved that's because this is a friend member function, not a
+//function of String class.
 ostream& operator<<(ostream &out, const String &str)
 {
   //since we got a reference, shouldn't we derefence it 
   //str -> sPtr?
+  //solved: no & is already derefenced
   out << str.sPtr;
 
   return out;
@@ -60,7 +66,6 @@ String::String(const char *s)
 {
   length = setLength(s);
 
-  //TODO:change to dynamic allocation
   //add 1 for null character
   sPtr = new char[length+1];
   //FIXME try avoid using const_cast
@@ -96,6 +101,7 @@ const String& String::operator+=(const String &str)
 {
   char *buffer;
   //we don't need a null character?
+  //yes, it's just a character buffer, not a string.
   buffer = new char[length];
   int tmpLen = length;
   this->length += str.length;
@@ -151,9 +157,9 @@ bool String::operator==(const String &s) const
       if(this->sPtr[i] != s.sPtr[i]) {
         isEqual = false;
         break;
-      }
+      }// endif
     }
-  }
+  }// endif
   
   return isEqual;
 }
@@ -168,11 +174,11 @@ bool String::operator<(const String &s) const
     if(this->sPtr[i] < s.sPtr[i]) {
       comesFirst = true;
       break;
-    }
+    }// endif
     if(this->sPtr[i] > s.sPtr[i]) {
       comesFirst = false;
       break;
-    }
+    }// endif
   }
   return comesFirst;
 }
@@ -192,11 +198,11 @@ bool String::operator>(const String &s) const
     if(this->sPtr[i] < s.sPtr[i]) {
       comesLater = false;
       break;
-    }
+    }// endif
     if(this->sPtr[i] > s.sPtr[i]) {
       comesLater = true;
       break;
-    }
+    }// endif
   }
   return comesLater;
 }
@@ -204,21 +210,25 @@ bool String::operator>(const String &s) const
 // < or == 
 bool String::operator<=(const String &right) const
 {
-  return (*this<right || *this == right);
+  return (*this < right || *this == right);
 }
 
+// > or == 
 bool String::operator>=(const String &right) const
 {
-  return (*this>right || *this == right);
+  return (*this > right || *this == right);
 }
 
 //returns a reference
+//return type is kinda confusing
 char& String::operator[](int a)
 {
   return this->sPtr[a];
 }
 
 //return a substring
+//FIXME should I delete reversed string function 
+//and implement an end to string function?
 String String::operator()(int start, int end) const
 {
   static char *str;
@@ -237,15 +247,15 @@ String String::operator()(int start, int end) const
       str[i] = this->sPtr[start+i];
     }
     str[i] = '\0';
-  }
+  }// endif
   //reversed substring
   else if (start > end) {
     for (i = start; i > end - 1; i--) {
       str[j] = this->sPtr[i];
       j++;
-    }
+    }// endif
     str[j] = '\0';
-  }
+  }// endif
   return str;
 }
 
@@ -275,4 +285,3 @@ int String::setLength(const char *str)
   
   return cnt;
 }
-
