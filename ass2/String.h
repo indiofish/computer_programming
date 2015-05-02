@@ -132,6 +132,7 @@ bool String::operator==(const String &s) const
   return isEqual;
 }
 
+//FIXME I return true when two strings are equal
 bool String::operator<(const String &s) const
 {
   bool comesFirst = true;
@@ -172,6 +173,7 @@ bool String::operator!=(const String &right) const
   return isDiff;
 }
 
+//FIXME I return true when two strings are equal
 bool String::operator>(const String &s) const
 {
   bool comesLater=true;
