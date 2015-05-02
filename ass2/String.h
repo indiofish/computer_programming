@@ -107,6 +107,7 @@ const String& String::operator+=(const String &str)
   }
 
   //only if there was realloc!!
+  //re-allocate sPtr with bigger size.
   sPtr = new char[length+1];
 
   //copy from temp buffer to original.
@@ -178,24 +179,7 @@ bool String::operator<(const String &s) const
 
 bool String::operator!=(const String &right) const
 {
-  bool isDiff = false;
-  int i;
-
-  if (this->length != right.length) {
-    //if different length, we don't have to look at the content
-    isDiff = true;
-  }
-  else {
-    for (i = 0; i < this->length; i++) {
-      //if there is different character
-      if(this->sPtr[i] != right.sPtr[i]) {
-        isDiff = true;
-        break;
-      }
-    }
-  }
-
-  return isDiff;
+  return !(*this==right);
 }
 
 //FIXME I return true when two strings are equal
@@ -217,22 +201,16 @@ bool String::operator>(const String &s) const
   return comesLater;
 }
 
-//bool String::operator<=(const String &s) const
-//{
-  //bool comesFirstorEq;
-  //int i;
+// < or == 
+bool String::operator<=(const String &right) const
+{
+  return (*this<right || *this == right);
+}
 
-  //for (i = 0; i < myMin(this->length,s.length); i++) {
-    //if(this->sPtr[i] < s.sPtr[i]) {
-      //comesFirstorEq = false;
-      //break;
-    //}
-    //if(this->sPtr[i] > s.sPtr[i]) {
-      //comesFirstorEq = true;
-      //break;
-    //}
-  //}
-//}
+bool String::operator>=(const String &right) const
+{
+  return (*this>right || *this == right);
+}
 
 //returns a reference
 char& String::operator[](int a)

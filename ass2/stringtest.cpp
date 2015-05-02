@@ -7,7 +7,7 @@ using std::boolalpha;
 
 int main() {
   String s1( "happy" );
-  String s2( "zappy" ); 
+  String s2( "happy" ); 
   String s3;
   std::cout << s1 << std::endl;
   std::cout << s2 << std::endl;
@@ -18,12 +18,12 @@ int main() {
     ( s2 == s1 )
     << "\ns2 != s1 yields " << ( s2 != s1 )
     << "\ns2 > s1 yields " << ( s2 > s1 )
-    << "\ns2 < s1 yields " << ( s2 < s1 ) <<endl;
-    //<< "\ns2 >= s1 yields " << ( s2 >= s1 )
-    //<< "\ns2 <= s1 yields " << ( s2 <= s1 );
+    << "\ns2 < s1 yields " << ( s2 < s1 )
+    << "\ns2 >= s1 yields " << ( s2 >= s1 )
+    << "\ns2 <= s1 yields " << ( s2 <= s1 )<<endl;
   std::cout << s1(0,2) << std::endl;
   std::cout << s2(4,0) << std::endl;
-  s1 += s2;
+  s1 += "you";
   std::cout << s1 << std::endl;
 
   // test overloaded String empty (!) operator
