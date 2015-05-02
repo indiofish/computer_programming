@@ -45,10 +45,10 @@ int main() {
   std::cout << "after modification" << std::endl;
   std::cout << s1 << std::endl;
 
-  std::cout << "Attempt to assign 'd' to s1[30] yields " << std::endl;
+  std::cout << "Attempt to assign 'd' to s1[-1] yields " << std::endl;
   //wft???
-  s1[1000] = 'd';
-  std::cout << s1[1000] << std::endl;
+  s1[30] = 'd';
+  std::cout << s1[30] << std::endl;
 
   return 0;
 } // end main

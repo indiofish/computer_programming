@@ -223,6 +223,7 @@ bool String::operator>=(const String &right) const
 //return type is kinda confusing
 char& String::operator[](int a)
 {
+  assert(a >= 0 && a <= this->length-1);
   return this->sPtr[a];
 }
 
