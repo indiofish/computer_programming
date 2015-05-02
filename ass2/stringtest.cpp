@@ -21,12 +21,16 @@ int main() {
     << "\ns2 < s1 yields " << ( s2 < s1 ) <<endl;
     //<< "\ns2 >= s1 yields " << ( s2 >= s1 )
     //<< "\ns2 <= s1 yields " << ( s2 <= s1 );
-  // test overloaded String empty (!) operator
   std::cout << s1(0,2) << std::endl;
   std::cout << s2(4,0) << std::endl;
+  s1 += s2;
+  std::cout << s1 << std::endl;
+
+  // test overloaded String empty (!) operator
   cout << "\n\nTesting !s3:" << endl;
   if ( !s3 ) {
-    cout << "s3 is empty; assigning s1 to s3;" << endl; s3 = s2; // test overloaded assignment
+    cout << "s3 is empty; assigning s1 to s3;" << endl; s3 = s1; 
+    // test overloaded assignment
     cout << "s3 is \"" << s3 << "\""; } 
   return 0;
 } // end main

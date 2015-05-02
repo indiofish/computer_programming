@@ -67,6 +67,7 @@ String::String(const char *s)
   sPtr = const_cast<char*> (s);
   //something
 }
+
 String::String(const String &str)
 {
   this->length = str.length;
@@ -75,6 +76,7 @@ String::String(const String &str)
 
 String::~String()
 {
+  //why error?
   //free(sPtr);
   //free(&length);
 }
@@ -88,15 +90,38 @@ const String& String::operator=(const String& str)
   return *this;
 }
 
-//TODO improve this.
-//const String& String::operator+=(const String &str)
-//{
-  //this->length += str.length;
 
-  //sPtr = new char[length+1];
+//TODO improve this.
+const String& String::operator+=(const String &str)
+{
+  char *buffer;
+  //we don't need a null character?
+  buffer = new char[length];
+  int tmpLen = length;
+  this->length += str.length;
+  int i;
+
+  //copy string to temporary buffer.
+  for (i = 0; i < tmpLen; i++) {
+    buffer[i] = sPtr[i];
+  }
+
+  //only if there was realloc!!
+  sPtr = new char[length+1];
+
+  //copy from temp buffer to original.
+  for (i = 0; i < tmpLen; i++) {
+    sPtr[i] = buffer[i];
+  }
+
+  //add str to original string
+  for (i = tmpLen; i < length; i++) {
+    sPtr[i] = str.sPtr[i-tmpLen];
+  }
+  sPtr[i] = '\0';
   
-  //return *this;
-//}
+  return *this;
+}
 
 bool String::operator!() const
 {
@@ -110,7 +135,7 @@ bool String::operator!() const
   return isEmpty;
 }
 
-bool String::operator==(const String &s) const 
+bool String::operator==(const String &s) const
 {
   bool isEqual = true;
   int i;
