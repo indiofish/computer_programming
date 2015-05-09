@@ -7,7 +7,7 @@ using std::boolalpha;
 
 int main() {
   String s1( "happy" );
-  const String s2( " birthday" ); 
+  const String s2( "happy" ); 
   String s3;
   std::cout << s1 << std::endl;
   std::cout << s2 << std::endl;

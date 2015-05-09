@@ -166,7 +166,7 @@ bool String::operator==(const String &s) const
 //FIXME I return true when two strings are equal
 bool String::operator<(const String &s) const
 {
-  bool comesFirst = true;
+  bool comesFirst = false;
   int i;
 
   for (i = 0; i < myMin(this->length,s.length); i++) {
@@ -174,11 +174,12 @@ bool String::operator<(const String &s) const
       comesFirst = true;
       break;
     }// endif
-    if(this->sPtr[i] > s.sPtr[i]) {
+    else if(this->sPtr[i] > s.sPtr[i]) {
       comesFirst = false;
       break;
     }// endif
   }
+  //if same till the end, default value(false) will be returned.
   return comesFirst;
 }
 
@@ -190,7 +191,7 @@ bool String::operator!=(const String &right) const
 //FIXME I return true when two strings are equal
 bool String::operator>(const String &s) const
 {
-  bool comesLater=true;
+  bool comesLater=false;
   int i;
 
   for (i = 0; i < myMin(this->length,s.length); i++) {
@@ -198,11 +199,12 @@ bool String::operator>(const String &s) const
       comesLater = false;
       break;
     }// endif
-    if(this->sPtr[i] > s.sPtr[i]) {
+    else if(this->sPtr[i] > s.sPtr[i]) {
       comesLater = true;
       break;
     }// endif
   }
+  //if same till the end, default value(false) will be returned.
   return comesLater;
 }
 
