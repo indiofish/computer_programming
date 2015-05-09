@@ -163,7 +163,6 @@ bool String::operator==(const String &s) const
   return isEqual;
 }
 
-//FIXME I return true when two strings are equal
 bool String::operator<(const String &s) const
 {
   bool comesFirst = false;
@@ -188,7 +187,6 @@ bool String::operator!=(const String &right) const
   return !(*this==right);
 }
 
-//FIXME I return true when two strings are equal
 bool String::operator>(const String &s) const
 {
   bool comesLater=false;
@@ -206,6 +204,9 @@ bool String::operator>(const String &s) const
   }
   //if same till the end, default value(false) will be returned.
   return comesLater;
+  //vs 
+  //easier but slower
+  //return (!(*this < right) && !(this == right));
 }
 
 // < or == 
@@ -251,8 +252,6 @@ char String::operator[](int a) const
 }
 
 //return a substring
-//FIXME should I delete reversed string function 
-//and implement an end to string function?
 String String::operator()(int start, int end) const
 {
   static char *str;
@@ -268,26 +267,27 @@ String String::operator()(int start, int end) const
   }
   //add 1 for null character
   //len is absoulute value of length + 1 for null char.
-  int len = (start<=end?  end-start + 1 + 1 : start-end+1+1);
+  int len = (start<=end?  end-start + 1 + 1 : length+1);
   str = new char[len];
   int i=0;
   int j=0;
 
   //normal substring
+  //this case cares for string(0,0) -> first letter.
   if (start <= end) {
     for (i = 0; i < end - start + 1; i++) {
       str[i] = this->sPtr[start+i];
     }
     str[i] = '\0';
   }// endif
-  //reversed substring
-  else if (start > end) {
-    for (i = start; i > end - 1; i--) {
-      str[j] = this->sPtr[i];
-      j++;
-    }// endif
-    str[j] = '\0';
-  }// endif
+
+  else if (end==0) {
+    for (i = 0; i < length; i++) {
+      str[i] = this->sPtr[start+i];
+    }
+    str[i] = '\0';
+  }
+
   return str;
 }
 

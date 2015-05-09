@@ -34,7 +34,10 @@ int main() {
     // test overloaded assignment
     cout << "s3 is \"" << s3 << "\"\n"; 
   } 
+  std::cout << "test print one char" << std::endl;
   std::cout << s3(0) << std::endl;
+  std::cout << "test print till end" << std::endl;
+  std::cout << s3(2) << std::endl;
 
   //test 
   String *s4Ptr = new String(s2);
