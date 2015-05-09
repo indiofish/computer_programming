@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cassert>
 #include <cstdlib>
 using std::ostream;
 using std::istream;
@@ -148,7 +147,7 @@ bool String::operator==(const String &s) const
   int i;
 
   if (this->length != s.length) {
-    //if different length, we don't have to look at the content
+    //if different length, we don't have to look at the contents
     isEqual = false;
   }
   else {
@@ -223,8 +222,30 @@ bool String::operator>=(const String &right) const
 //return type is kinda confusing
 char& String::operator[](int a)
 {
-  assert(a >= 0 && a <= this->length-1);
+  try {
+    if(a < 0 || a > this->length-1)
+      throw a;
+  }
+  catch(int exception) {
+    std::cout << "Array Exception: index " <<
+      exception << " is out of range." << std::endl;
+  }
+  
   return this->sPtr[a];
+}
+
+char String::operator[](int a) const
+{
+  try {
+    if(a < 0 || a > this->length-1)
+      throw a;
+  }
+  catch(int exception) {
+    std::cout << "Array Exception: index " <<
+      exception << " is out of range." << std::endl;
+  }
+  
+  return (this->sPtr[a]);
 }
 
 //return a substring
@@ -233,8 +254,16 @@ char& String::operator[](int a)
 String String::operator()(int start, int end) const
 {
   static char *str;
-  assert(start >= 0 && start <= this->length-1);
-  assert(end >= 0 && end <= this->length-1);
+  try {
+    if(start < 0 || start > this->length-1)
+      throw start;
+    else if(end < 0 || end > this->length-1)
+      throw end;
+  }
+  catch(int exception) {
+    std::cout << "Array Exception: index " <<
+      exception << " is out of range." << std::endl;
+  }
   //add 1 for null character
   //len is absoulute value of length + 1 for null char.
   int len = (start<=end?  end-start + 1 + 1 : start-end+1+1);

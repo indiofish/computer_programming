@@ -7,7 +7,7 @@ using std::boolalpha;
 
 int main() {
   String s1( "happy" );
-  String s2( " birthday" ); 
+  const String s2( " birthday" ); 
   String s3;
   std::cout << s1 << std::endl;
   std::cout << s2 << std::endl;
@@ -40,15 +40,17 @@ int main() {
   String *s4Ptr = new String(s2);
   std::cout << "testing copy constructor" << std::endl;
   std::cout << *s4Ptr << std::endl;
+  std::cout << "char is " << s1[0] << std::endl;
   s1[0] = 'z';
   s1[6] = 's';
   std::cout << "after modification" << std::endl;
   std::cout << s1 << std::endl;
+  std::cout << "test const subscript" << std::endl;
+  std::cout << s2[3] << std::endl;
 
-  std::cout << "Attempt to assign 'd' to s1[-1] yields " << std::endl;
+  std::cout << "Attempt to assign 'd' to s1[30] yields " << std::endl;
   //wft???
   s1[30] = 'd';
-  std::cout << s1[30] << std::endl;
 
   return 0;
 } // end main
