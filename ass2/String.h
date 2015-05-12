@@ -16,7 +16,7 @@ public:
   ~String();
   const String & operator=(const String &);
   const String & operator+=(const String &);
-  const String & operator+=(const char *);
+  //const String & operator+=(const char *);
 
   bool operator!() const;
   bool operator==(const String &) const;
@@ -79,7 +79,7 @@ String::String(const String &str)
 
 String::~String()
 {
-  std::cout << "freed!" << std::endl;
+  std::cout << "free!" << std::endl;
   delete[] sPtr;
 }
 
@@ -102,48 +102,11 @@ const String& String::operator=(const String& str)
   return *this;
 }
 
-const String& String::operator+=(const char *str)
-{
-  char *buffer;
-  //we don't need a null character because 
-  //it's just a character buffer, not a string.
-  buffer = new char[length];
-  int tmpLen = length;
-  this->length += setLength(str);
-  int i;
 
-  //copy string to temporary buffer.
-  for (i = 0; i < tmpLen; i++) {
-    buffer[i] = sPtr[i];
-  }
-
-  //re-allocate sPtr with bigger size.
-  delete[] sPtr;
-  sPtr = new char[length+1];
-
-  //copy from temp buffer to original.
-  for (i = 0; i < tmpLen; i++) {
-    sPtr[i] = buffer[i];
-  }
-
-  //add str to original string
-  for (i = tmpLen; i < length; i++) {
-    sPtr[i] = str[i-tmpLen];
-  }
-  sPtr[i] = '\0';
-  
-  delete[] buffer;
-  return *this;
-}
-
-
-//TODO improve this.
 const String& String::operator+=(const String &str)
 {
-  char *buffer;
-  //we don't need a null character?
-  //yes, it's just a character buffer, not a string.
-  buffer = new char[length+1];
+  char buffer[length];
+  //we don't need a null character just a character buffer, not a string.
   int tmpLen = length;
   this->length += str.length;
   int i;
@@ -168,7 +131,6 @@ const String& String::operator+=(const String &str)
   }
   sPtr[i] = '\0';
   
-  delete[] buffer;
   return *this;
 }
 
@@ -264,8 +226,6 @@ bool String::operator>=(const String &right) const
   return (*this > right || *this == right);
 }
 
-//returns a reference
-//return type is kinda confusing
 char& String::operator[](int a)
 {
   try {
@@ -295,7 +255,6 @@ char String::operator[](int a) const
 }
 
 //return a substring
-//String type 이 아니라 const char *를 리턴???????????
 String String::operator()(int start, int end) const
 {
   int i=0;
