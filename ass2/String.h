@@ -2,7 +2,6 @@
 #include <cstdlib>
 using std::ostream;
 using std::istream;
-using std::free;
 
 class String
 {
@@ -17,6 +16,7 @@ public:
   ~String();
   const String & operator=(const String &);
   const String & operator+=(const String &);
+  const String & operator+=(const char *);
 
   bool operator!() const;
   bool operator==(const String &) const;
@@ -30,9 +30,6 @@ public:
   char &operator[](int);
   char operator[](int) const;
 
-  //by setting second parameter default to zero, 
-  //providing only one parameter means end of string.
-  //String operator()(int, int = 0) const;
   String operator()(int, int = 0) const;
   int getLength() const;
 
@@ -64,33 +61,78 @@ ostream& operator<<(ostream &out, const String &str)
 String::String(const char *s)
 {
   length = setLength(s);
-
   //add 1 for null character
   sPtr = new char[length+1];
-  //FIXME try avoid using const_cast
-  sPtr = const_cast<char*> (s);
-  //something
+  for (int i = 0; i < length+1; i++) {
+    this->sPtr[i] = s[i];
+  }
 }
 
 String::String(const String &str)
 {
   this->length = str.length;
-  this->sPtr = str.sPtr;
+  sPtr = new char[length+1];
+  for (int i = 0; i < length+1; i++) {
+    this->sPtr[i] = str.sPtr[i];
+  }
 }
 
 String::~String()
 {
-  //why error?
-  //free(sPtr);
-  //free(&length);
+  std::cout << "freed!" << std::endl;
+  delete[] sPtr;
 }
 
 const String& String::operator=(const String& str)
 {
   //same as copying
   this->length = str.length;
-  this->sPtr = str.sPtr;
+  char buf[length+1];
+
+  for (int i = 0; i < length+1; i++) {
+    buf[i] = str.sPtr[i];
+  }
+  delete[] sPtr;
+  sPtr = new char[length+1];
+
+  for (int i = 0; i < length+1; i++) {
+    sPtr[i] = buf[i];
+  }
+
+  return *this;
+}
+
+const String& String::operator+=(const char *str)
+{
+  char *buffer;
+  //we don't need a null character because 
+  //it's just a character buffer, not a string.
+  buffer = new char[length];
+  int tmpLen = length;
+  this->length += setLength(str);
+  int i;
+
+  //copy string to temporary buffer.
+  for (i = 0; i < tmpLen; i++) {
+    buffer[i] = sPtr[i];
+  }
+
+  //re-allocate sPtr with bigger size.
+  delete[] sPtr;
+  sPtr = new char[length+1];
+
+  //copy from temp buffer to original.
+  for (i = 0; i < tmpLen; i++) {
+    sPtr[i] = buffer[i];
+  }
+
+  //add str to original string
+  for (i = tmpLen; i < length; i++) {
+    sPtr[i] = str[i-tmpLen];
+  }
+  sPtr[i] = '\0';
   
+  delete[] buffer;
   return *this;
 }
 
@@ -101,7 +143,7 @@ const String& String::operator+=(const String &str)
   char *buffer;
   //we don't need a null character?
   //yes, it's just a character buffer, not a string.
-  buffer = new char[length];
+  buffer = new char[length+1];
   int tmpLen = length;
   this->length += str.length;
   int i;
@@ -111,8 +153,8 @@ const String& String::operator+=(const String &str)
     buffer[i] = sPtr[i];
   }
 
-  //only if there was realloc!!
   //re-allocate sPtr with bigger size.
+  delete[] sPtr;
   sPtr = new char[length+1];
 
   //copy from temp buffer to original.
@@ -126,6 +168,7 @@ const String& String::operator+=(const String &str)
   }
   sPtr[i] = '\0';
   
+  delete[] buffer;
   return *this;
 }
 
@@ -234,7 +277,7 @@ char& String::operator[](int a)
       exception << " is out of range." << std::endl;
   }
   
-  return this->sPtr[a];
+  return (this->sPtr[a]);
 }
 
 char String::operator[](int a) const
@@ -252,9 +295,11 @@ char String::operator[](int a) const
 }
 
 //return a substring
+//String type 이 아니라 const char *를 리턴???????????
 String String::operator()(int start, int end) const
 {
-  static char *str;
+  int i=0;
+  static String s;
   try {
     if(start < 0 || start > this->length-1)
       throw start;
@@ -265,30 +310,30 @@ String String::operator()(int start, int end) const
     std::cout << "Array Exception: index " <<
       exception << " is out of range." << std::endl;
   }
+  int len = (start<=end? end-start+1 : length-start +1);
   //add 1 for null character
-  //len is absoulute value of length + 1 for null char.
-  int len = (start<=end?  end-start + 1 + 1 : length+1);
-  str = new char[len];
-  int i=0;
-  int j=0;
+  //if you don't set length, cout<<s will only print out 1 char(len is 0)
+  s.length = len;
 
+  delete[] s.sPtr;
+  s.sPtr = new char[len+1];
   //normal substring
   //this case cares for string(0,0) -> first letter.
   if (start <= end) {
     for (i = 0; i < end - start + 1; i++) {
-      str[i] = this->sPtr[start+i];
+      s.sPtr[i] = this->sPtr[start+i];
     }
-    str[i] = '\0';
+    s.sPtr[i] = '\0';
   }// endif
 
   else if (end==0) {
-    for (i = 0; i < length; i++) {
-      str[i] = this->sPtr[start+i];
+    for (i = 0; i < len; i++) {
+      s.sPtr[i] = this->sPtr[start+i];
     }
-    str[i] = '\0';
+    s.sPtr[i] = '\0';
   }
 
-  return str;
+  return s;
 }
 
 int String::getLength() const
@@ -303,7 +348,7 @@ int String::myMin(int a, int b) const
 }
 
 
-int String::setLength(const char *str) 
+int String::setLength(const char *str)
 {
   int cnt=0;
 
