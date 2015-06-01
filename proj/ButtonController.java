@@ -26,8 +26,6 @@ public class ButtonController {
       b4.addActionListener(bh);
 
     //by default, action command is set to button's label.
-    //b1.setActionCommand("line");
-
     bT.getButtonPanel().add(b0);
     bT.getButtonPanel().add(b1);
     bT.getButtonPanel().add(b2);

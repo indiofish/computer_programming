@@ -12,12 +12,12 @@ public class Rectangular extends Shape {
 		return l;
 	}
 
-  //FIXME if this is drawn from diffrent direction
-  //we have to calculate the left corner
-  //before we draw it.
-	public void paintComponent (Graphics g) {
+  @Override
+  //public void paintChildren (Graphics g) {
+  public void paintComponent(Graphics g) {
     //X left corner, Y left corner.
-    //super.paintComponent(g);
+    super.paintComponent(g);
+    //super.paintChildren(g);
     int Xleft = 0;
     int Yleft = 0;
     
@@ -40,5 +40,6 @@ public class Rectangular extends Shape {
       g.fillRect(Xleft,Yleft,width,heigth);
     else
       g.drawRect(Xleft,Yleft,width,heigth);
+    //super.paintComponent(g);
   }
 }

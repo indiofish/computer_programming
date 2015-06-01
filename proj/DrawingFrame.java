@@ -20,11 +20,9 @@ public class DrawingFrame extends JFrame {
   private Panel choicePanel;
   private Panel textPanel;
 
-  //debug purpose
-
   private JLabel titleLabel;
 
-  //currenst states.
+  //current states.
   private int currentShape;
   private Color currentColor;
   private boolean fillState;
@@ -45,11 +43,11 @@ public class DrawingFrame extends JFrame {
     fillState = true;
 
     rmiModule = rmi;
-
     //init all panels
     buttonPanel = new Panel();
     textPanel = new Panel();
     choicePanel = new Panel();
+    shapeContainer = new ShapeContainer();
 
     //added by me
     new ButtonController(this);
@@ -57,22 +55,23 @@ public class DrawingFrame extends JFrame {
     new ChoiceController(this);
     getContentPane().add("East",choicePanel);
 
-    shapeContainer = new ShapeContainer();
-    getContentPane().add("Center",shapeContainer);
 
     titleLabel = new JLabel("그림판", SwingConstants.CENTER);
     getContentPane().add("North",titleLabel);
-
 
     drawer = new CanvasMouseController(this);
     //end
 
     addWindowListener(new LocalWindowListener());
+    
+    getContentPane().add("Center",shapeContainer);
+    setShapeContainer(shapeContainer);
 
     this.pack();
     //setSize(500,500);
 
     //show() deprecated, use setVisible(true) instead;
+    //show();
     setVisible(true);
   }
 
@@ -104,15 +103,16 @@ public class DrawingFrame extends JFrame {
 
     newShape.setColor(getCurrentColor());
     newShape.setFill(getFillState());
-    newShape.setBounds(0,0,getShapeContainer().getWidth(), getShapeContainer().getHeight());
+    //newShape.setBounds(0,0,getShapeContainer().getWidth(), getShapeContainer().getHeight());
     try {
       getShapeContainer().add(newShape);
       //FIXME uncomment this line later.
       rmiModule.add(newShape,entity);
-      //removeFrontShape();
     } catch (Exception e) {
       e.printStackTrace();
     }
+    //getShapeContainer().validate();
+    //getShapeContainer().repaint();
     validate();
     repaint();
   }
@@ -147,6 +147,11 @@ public class DrawingFrame extends JFrame {
 
   public WhiteBoardService getRmiModule() { return rmiModule; }
   public void setRmiModule(WhiteBoardServiceImpl m) { rmiModule = m; }
+
+  public int getNumOfShape() 
+  {
+    return (this.getShapeContainer().getComponentCount());
+  }
 
   private class LocalWindowListener extends WindowAdapter {
     public void windowClosing(WindowEvent e){

@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 
-
 @SuppressWarnings("serial")
 public class Shape extends JComponent implements Cloneable {
 	
@@ -65,10 +64,12 @@ public class Shape extends JComponent implements Cloneable {
 	{
 		fill = b;
 	}
-	public void paint (Graphics g, int s) {
-		
-	}
 
+	//public void paint (Graphics g, int s) {
+		
+	//}
+
+  @Override
 	public void paintComponent (Graphics g) {
 		
 	}

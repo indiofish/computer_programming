@@ -12,7 +12,8 @@ public class Line extends Shape {
 
   //instead of paint, override paintComponent
   @Override
-	public void paintComponent (Graphics g) {
+  //public void paint(Graphics g) {
+  public void paintComponent (Graphics g) {
     super.paintComponent(g);
     int leftX = (int) p1.getX();
     int leftY = (int) p1.getY();

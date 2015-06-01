@@ -11,7 +11,6 @@ public class CanvasMouseController implements MouseMotionListener, MouseListener
 {
   private DrawingFrame bT;
   private Point start, end, route;
-  private boolean isDragged = false;
   private Point dummy;
 
   public CanvasMouseController(DrawingFrame jF)
@@ -26,10 +25,14 @@ public class CanvasMouseController implements MouseMotionListener, MouseListener
 
   @Override
   public void mouseDragged(MouseEvent arg0) 
-  {
+  { //draw as we drag
     route = arg0.getPoint();
-    //when free, draw on route, when other shape, don't
-    bT.addShape(dummy,route,dummy);
+    //remove the previous shape drawn by dragging.
+    if (bT.getNumOfShape() > 1)
+      bT.getShapeContainer().remove(
+          bT.getShapeContainer().getComponent(bT.getNumOfShape()-1)
+          );
+    bT.addShape(start,route,route);
   }
 
   @Override
@@ -44,13 +47,14 @@ public class CanvasMouseController implements MouseMotionListener, MouseListener
     //if inside the shapeContainer do sth.
     //getPoint for relative position.
     start = arg0.getPoint();
-    bT.addShape(start,start,start);
+    //bT.addShape(start,start,start);
   }
 
   @Override
   public void mousePressed(MouseEvent arg0) 
   {
     start = arg0.getPoint();
+    System.out.println("CLICKED");
   }
 
   @Override
@@ -58,7 +62,6 @@ public class CanvasMouseController implements MouseMotionListener, MouseListener
   {
     end = arg0.getPoint();
     bT.addShape(start,dummy,end);
-    //System.out.println(end.toString());
   }
 
   @Override
