@@ -2,10 +2,11 @@ import java.lang.*;
 public class Fibonacci 
 {
   private static String fiboGen(int num)
-  {//return String of Fibonacci sequence,FIXME result is 1,1 for default 
-    int a1 = 1;
-    int a2 = 1;
-    int lastNum = 0;
+  {//return String of Fibonacci sequence
+    int[] fb = {1,1,0};
+    long a1 = 1;
+    long a2 = 1;
+    long lastNum = 0;
     String result = "";
 
     if (num == 1)
@@ -26,8 +27,9 @@ public class Fibonacci
     }
     else 
       result = "Number Out Of Bounds";
+
     return result;
-  } 
+  }
 
 
 
