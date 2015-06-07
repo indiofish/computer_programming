@@ -28,7 +28,7 @@ public class Dog
 
   public static void main (String[] args) {
     Dog.bark(3);
-    Dog.bark("FXXK You");
+    Dog.bark("EXTERMINATE!");
     Dog.bark('F');
   }
 }

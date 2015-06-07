@@ -40,10 +40,11 @@ public class Ass3
   public static void main (String[] args) 
   {
     MyInt[] a1, a2;
-    a1 = new MyInt[10];
-    a2 = new MyInt[10];
+    int length = 10;
+    a1 = new MyInt[length];
+    a2 = new MyInt[length];
 
-    for (int i = 0; i < a1.length; i++) {
+    for (int i = 0; i < length; i++) {
       a1[i] = new MyInt(i);
       a2[i] = new MyInt(i);
     }

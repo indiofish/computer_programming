@@ -1,0 +1,21 @@
+[push] C
+[push] o
+[push] m
+[push] p
+[push] u
+[push] t
+[push] e
+[pop] e
+[push] r
+[pop] r
+[push] P
+[push] r
+[push] o
+[push] g
+[pop] g
+[push] r
+[push] a
+[push] m
+[push] 1
+[push] 5
+ComputProram15

@@ -7,12 +7,10 @@ public class Ass2
   {
     private ArrayList<T> stack;
     private int count;
-    private int maxSize;
 
     public MyStack(int initSize)
     {
-      maxSize = initSize;
-      stack = new ArrayList<>(maxSize);
+      stack = new ArrayList<>(initSize);
       count = 0;
     }
 
@@ -22,15 +20,29 @@ public class Ass2
       count++;
     }
 
-    public T pop() //throws Exception 
+    public T pop() throws IndexOutOfBoundsException 
     {//pops the top object which is managed by count, decrease 1
+      T item = null;
+      //-1 from count because ArrayList index starts from 0
       count--;
-      return stack.remove(count);
+      try {
+        item = stack.remove(count);
+      } catch(IndexOutOfBoundsException e) {
+        System.out.println("Stack is already empty: " + e.toString());
+      }
+      return item;
     }
 
-    public T peek()
+    public T peek() throws IndexOutOfBoundsException 
     {//doesn't pop
-      return stack.get(count-1);
+      T item = null;
+      try {
+        //temporary -1 from count because ArrayList index starts from 0
+        item = stack.get(count-1);
+      } catch(IndexOutOfBoundsException e) {
+        System.out.println("Stack is already empty: " + e.toString());
+      }
+      return item;
     }
 
     public void clear()
@@ -43,11 +55,6 @@ public class Ass2
       return count;
     }
 
-    public int maxSize()
-    {
-      return maxSize;
-    }
-
     @Override
     public String toString()
     {
@@ -56,27 +63,6 @@ public class Ass2
         result += stack.get(i);
       }
       return result;
-    }
-
-    public void printAll()
-    {
-      for (int i = 0; i < count; i++) {
-        System.out.print(stack.get(i));
-      }
-      System.out.println();
-      return;
-    }
-
-
-    //unnecessary
-    private void incSize()
-    {//if stack is full, increase size by double.
-      if (count >= maxSize) {
-        System.out.println("current size is" + maxSize);
-        maxSize *= 2;
-        stack.ensureCapacity(maxSize);
-        System.out.println("new size is" + maxSize);
-      }
     }
 
   }
@@ -99,16 +85,15 @@ public class Ass2
           stk.push(test.charAt(i));
         } 
         else if (test.charAt(i) == '-') {
-          try {
-            writer.write("[pop] " + stk.pop()+"\n");
-          } catch(IndexOutOfBoundsException e) {
-            System.out.println("Stack out of bounds" + e.toString());
-          }
+          writer.write("[pop] " + stk.pop()+"\n");
         }
       }
       writer.write(stk.toString());
+      writer.close();
     }catch (IOException ex) {
       System.out.println("Unable to Write to File");
-    } 
+    }     
+    return;
   }
+
 }

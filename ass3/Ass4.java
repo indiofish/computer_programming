@@ -8,14 +8,12 @@ public class Ass4 {
     char c;
     Random rand = new Random();	//generate random instance
 
-    //to make 'z' inclusive
-    //'a' ~ 'z'
+    //+1 to make 'z' inclusive //'a' ~ 'z'
     c = (char) (rand.nextInt('z' - 'a' + 1) + (int)'a');
 
-    //if char c is included in the String vowel
-    if (VOWEL.indexOf(c) != -1)
-      System.out.println(c + " is a vowel.");
-    else
-      System.out.println(c + " is a consonant.");
+    System.out.print(c + " is a ");
+    //if char c is included in the String VOWEL
+    //append "" to make c a String
+    System.out.println(VOWEL.contains(c+"") ? "vowel." : "consonant.");
   }
 }
