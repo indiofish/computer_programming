@@ -13,11 +13,11 @@ public class Rectangular extends Shape {
 	}
 
   @Override
-  //public void paintChildren (Graphics g) {
-  public void paintComponent(Graphics g) {
+  //public void paintChildren (Graphics g) 
+  //public void paintComponent(Graphics g) 
+  public void paint(Graphics g) 
+  {
     //X left corner, Y left corner.
-    super.paintComponent(g);
-    //super.paintChildren(g);
     int Xleft = 0;
     int Yleft = 0;
     
@@ -40,6 +40,11 @@ public class Rectangular extends Shape {
       g.fillRect(Xleft,Yleft,width,heigth);
     else
       g.drawRect(Xleft,Yleft,width,heigth);
-    //super.paintComponent(g);
+    super.paint(g);
+    setVisible(true);
+    validate();
+    //repaint();
+    super.doLayout();
+    return;
   }
 }

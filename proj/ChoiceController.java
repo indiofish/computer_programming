@@ -1,5 +1,3 @@
-//TODO change this to a combo box later.
-
 //import java.awt.Choice;
 import javax.swing.JComboBox;
 import java.awt.Color;

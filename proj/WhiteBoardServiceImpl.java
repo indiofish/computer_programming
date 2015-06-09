@@ -94,6 +94,7 @@ public class WhiteBoardServiceImpl extends UnicastRemoteObject implements WhiteB
 			server.remoteAdd(s);
 			localShapeContainer.repaint();
 		}
+    //System.out.println("ADDING STH");
 	}
 	
 	public void remoteAdd(Shape s)throws RemoteException

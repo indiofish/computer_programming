@@ -10,7 +10,7 @@ public class ButtonController {
 		bT = jF;
     LocalButtonHandler bh = new LocalButtonHandler();
 
-    Button b0 =new Button("FREE");
+    Button b0 =new Button("REMOVE");
       b0.addActionListener(bh);
 
     Button b1 = new Button("LINE");
@@ -36,8 +36,8 @@ public class ButtonController {
 	private class LocalButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent ae) {
       //TODO change to switch case?
-      if (ae.getActionCommand().equals("FREE")) {
-        bT.setShape(new Shape().FREE);
+      if (ae.getActionCommand().equals("REMOVE")) {
+        bT.removeFrontShape();
       }
       else if (ae.getActionCommand().equals("LINE")) {
         bT.setShape(new Shape().LINE);

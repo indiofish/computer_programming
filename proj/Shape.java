@@ -65,15 +65,10 @@ public class Shape extends JComponent implements Cloneable {
 		fill = b;
 	}
 
-	//public void paint (Graphics g, int s) {
-		
-	//}
-
   @Override
-	public void paintComponent (Graphics g) {
-		
-	}
-	
+  public void paint (Graphics g) {
+  }
+
 	public Dimension getPreferredSize () {
 		return new Dimension ((int)Math.abs(p1.getX()-p2.getX()),(int)Math.abs(p1.getY()-p2.getY()));
 	}

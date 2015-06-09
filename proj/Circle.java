@@ -20,11 +20,9 @@ public class Circle extends Shape {
   }
 
   @Override
-  //FIXME if this is drawn from diffrent direction
-  //we have to calculate the left corner
-  //before we draw it.
-  //Can we know the left corner if any two points are given?
-  public void paintComponent (Graphics g) {
+  public void paint(Graphics g)
+  {
+  //public void paintComponent (Graphics g) 
     //super.paintComponent(g);
     int Xleft = 0;
     int Yleft = 0;

@@ -41,13 +41,13 @@ public class DrawingFrame extends JFrame {
     currentShape = new Shape().FREE;
     currentColor = Color.BLACK;
     fillState = true;
-
     rmiModule = rmi;
     //init all panels
     buttonPanel = new Panel();
     textPanel = new Panel();
     choicePanel = new Panel();
     shapeContainer = new ShapeContainer();
+    //getContentPane().setLayout(new FlowLayout());
 
     //added by me
     new ButtonController(this);
@@ -100,24 +100,20 @@ public class DrawingFrame extends JFrame {
     {
       newShape = new Rectangular(start,end);
     }
-
     newShape.setColor(getCurrentColor());
     newShape.setFill(getFillState());
-    //newShape.setBounds(0,0,getShapeContainer().getWidth(), getShapeContainer().getHeight());
+    newShape.setBounds(0,0,getShapeContainer().getWidth(), getShapeContainer().getHeight());
     try {
-      getShapeContainer().add(newShape);
       //FIXME uncomment this line later.
+      //getShapeContainer().add(newShape);
       rmiModule.add(newShape,entity);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    //getShapeContainer().validate();
-    //getShapeContainer().repaint();
     validate();
     repaint();
   }
 
-  //used to erase topmost element???
   public void removeFrontShape()
   {
     try {
