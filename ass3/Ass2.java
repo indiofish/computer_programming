@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.io.*;
 public class Ass2 
 {
@@ -71,29 +72,30 @@ public class Ass2
   {
     MyStack<Character> stk = new MyStack<>(100);
     String test="+ C + o + m + p + u + t + e - + r - + P + r + o + g - + r + a + m + 1 + 5";
-    //remove spaces
-    test = test.replaceAll("\\s+","");
+    String token = "";
+    //space becomes the token for default
+    StringTokenizer tk = new StringTokenizer(test);
 
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
             new FileOutputStream("stack.txt"), "utf-8"))) 
     {
-      for (int i = 0; i < test.length(); i++) {
-        if (test.charAt(i) == '+') {
+      while(tk.hasMoreTokens()) {
+        token = tk.nextToken();
+        if (token.charAt(0) == '+') {
           //if +, read the next char to add
-          i++;
-          writer.write("[push] "+ test.charAt(i)+"\n");
-          stk.push(test.charAt(i));
+          stk.push(tk.nextToken().charAt(0));
+          writer.write("[push] "+ stk.peek() + '\n');
         } 
-        else if (test.charAt(i) == '-') {
+        else if (token.charAt(0) == '-') {
           writer.write("[pop] " + stk.pop()+"\n");
         }
       }
-      writer.write(stk.toString());
-      writer.close();
-    }catch (IOException ex) {
-      System.out.println("Unable to Write to File");
-    }     
-    return;
-  }
+    writer.write(stk.toString());
+    //writer.close();
+  }catch (IOException ex) {
+    System.out.println("Unable to Write to File");
+  }     
+  return;
+}
 
 }
