@@ -13,8 +13,6 @@ public class Rectangular extends Shape {
 	}
 
   @Override
-  //public void paintChildren (Graphics g) 
-  //public void paintComponent(Graphics g) 
   public void paint(Graphics g) 
   {
     //X left corner, Y left corner.
@@ -40,11 +38,7 @@ public class Rectangular extends Shape {
       g.fillRect(Xleft,Yleft,width,heigth);
     else
       g.drawRect(Xleft,Yleft,width,heigth);
-    super.paint(g);
-    setVisible(true);
     validate();
-    //repaint();
-    super.doLayout();
     return;
   }
 }

@@ -5,7 +5,7 @@ import java.lang.Math;
 public class Circle extends Shape {
   private int radius = 0;
 
-  //Point a1 -> left corner, point a2 -> right corner
+  //a1 -> location of mouse pressed a2 ->location of mouse release
 	public Circle (Point a1, Point a2) {
 		super (a1, a2);
     int d1, d2;
@@ -22,8 +22,6 @@ public class Circle extends Shape {
   @Override
   public void paint(Graphics g)
   {
-  //public void paintComponent (Graphics g) 
-    //super.paintComponent(g);
     int Xleft = 0;
     int Yleft = 0;
 
@@ -43,5 +41,6 @@ public class Circle extends Shape {
       g.fillOval(Xleft,Yleft,radius,radius);
     else
       g.drawOval(Xleft,Yleft,radius,radius);
+    validate();
   }
 }

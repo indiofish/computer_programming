@@ -10,9 +10,6 @@ public class ButtonController {
 		bT = jF;
     LocalButtonHandler bh = new LocalButtonHandler();
 
-    Button b0 =new Button("REMOVE");
-      b0.addActionListener(bh);
-
     Button b1 = new Button("LINE");
       b1.addActionListener(bh);
 
@@ -26,20 +23,17 @@ public class ButtonController {
       b4.addActionListener(bh);
 
     //by default, action command is set to button's label.
-    bT.getButtonPanel().add(b0);
     bT.getButtonPanel().add(b1);
     bT.getButtonPanel().add(b2);
     bT.getButtonPanel().add(b3);
     bT.getButtonPanel().add(b4);
+    bT.validate();
 	}
 	
 	private class LocalButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent ae) {
-      //TODO change to switch case?
-      if (ae.getActionCommand().equals("REMOVE")) {
-        bT.removeFrontShape();
-      }
-      else if (ae.getActionCommand().equals("LINE")) {
+
+      if (ae.getActionCommand().equals("LINE")) {
         bT.setShape(new Shape().LINE);
       }
       else if (ae.getActionCommand().equals("CIRCLE")) {

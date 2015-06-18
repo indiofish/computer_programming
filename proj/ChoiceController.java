@@ -6,6 +6,8 @@ import java.awt.event.ItemListener;
 
 public class ChoiceController {
   private DrawingFrame bT;
+  private String[] COLORS = {"BLACK","RED","GREEN","BLUE"};
+  private String[] FILL = {"FILL","UNFILL"};
 
   public ChoiceController(DrawingFrame jF)
   {
@@ -13,18 +15,12 @@ public class ChoiceController {
     LocalColorChoiceHandler ch = new LocalColorChoiceHandler();
     LocalFillChoiceHandler fh = new LocalFillChoiceHandler();
 
-    JComboBox<String> colorChoice = new JComboBox<String>();
-      colorChoice.addItem("BLACK");
-      colorChoice.addItem("RED");
-      colorChoice.addItem("GREEN");
-      colorChoice.addItem("BLUE");
+    JComboBox<String> colorChoice = new JComboBox<String>(COLORS);
       colorChoice.addItemListener(ch);
       colorChoice.setBackground(Color.white);
     bT.getChoicePanel().add(colorChoice);
 
-    JComboBox<String> fillChoice = new JComboBox<String>();
-      fillChoice.addItem("Fill");
-      fillChoice.addItem("Unfill");
+    JComboBox<String> fillChoice = new JComboBox<String>(FILL);
       fillChoice.addItemListener(fh);
       fillChoice.setBackground(Color.white);
     bT.getChoicePanel().add(fillChoice);
@@ -46,7 +42,6 @@ public class ChoiceController {
       else if (arg0.getItem().equals("BLUE")) {
         bT.setCurrentColor(Color.blue);
       }
-      //some kind of a error
       else {
         bT.setCurrentColor(Color.cyan);
       }

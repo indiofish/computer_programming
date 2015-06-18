@@ -38,7 +38,7 @@ public class DrawingFrame extends JFrame {
     entity = title;
 
     //default states
-    currentShape = new Shape().FREE;
+    currentShape = new Shape().LINE;
     currentColor = Color.BLACK;
     fillState = true;
     rmiModule = rmi;
@@ -47,9 +47,7 @@ public class DrawingFrame extends JFrame {
     textPanel = new Panel();
     choicePanel = new Panel();
     shapeContainer = new ShapeContainer();
-    //getContentPane().setLayout(new FlowLayout());
 
-    //added by me
     new ButtonController(this);
     getContentPane().add("South",buttonPanel);
     new ChoiceController(this);
@@ -60,7 +58,6 @@ public class DrawingFrame extends JFrame {
     getContentPane().add("North",titleLabel);
 
     drawer = new CanvasMouseController(this);
-    //end
 
     addWindowListener(new LocalWindowListener());
     
@@ -68,10 +65,9 @@ public class DrawingFrame extends JFrame {
     setShapeContainer(shapeContainer);
 
     this.pack();
-    //setSize(500,500);
 
     //show() deprecated, use setVisible(true) instead;
-    //show();
+    validate();
     setVisible(true);
   }
 
@@ -102,10 +98,8 @@ public class DrawingFrame extends JFrame {
     }
     newShape.setColor(getCurrentColor());
     newShape.setFill(getFillState());
-    newShape.setBounds(0,0,getShapeContainer().getWidth(), getShapeContainer().getHeight());
     try {
-      //FIXME uncomment this line later.
-      //getShapeContainer().add(newShape);
+      getShapeContainer().add(newShape);
       rmiModule.add(newShape,entity);
     } catch (Exception e) {
       e.printStackTrace();

@@ -18,18 +18,14 @@ public class ShapeContainer extends Container implements java.io.Serializable {
     g.setColor(getBackground());
     g.fillRect(0, 0, getWidth(), getHeight());
     g.setColor (Color.black);
+
     for (int i = 0; i <this.getComponentCount();i++) {
       this.getComponent(i).paint(g);
     }
 
-    //s++;
+    validate();
     return;
 	}
-
-  //public void add(Shape s) 
-  //{
-  //}
-
 
 
   public Dimension getPreferredSize () {
