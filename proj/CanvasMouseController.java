@@ -6,12 +6,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
-//FIXME avoid using dummy point.
 public class CanvasMouseController implements MouseMotionListener, MouseListener 
 {
   private DrawingFrame bT;
   private Point start, end, route;
-  private Point dummy;
 
   public CanvasMouseController(DrawingFrame jF)
   {
@@ -19,8 +17,6 @@ public class CanvasMouseController implements MouseMotionListener, MouseListener
     //mouse listening is only done in the shapeContainer
     bT.getShapeContainer().addMouseListener(this);
     bT.getShapeContainer().addMouseMotionListener(this);
-    dummy = new Point();
-    dummy.setLocation(-99,-99);
   }
 
   @Override
@@ -28,9 +24,9 @@ public class CanvasMouseController implements MouseMotionListener, MouseListener
   { //draw as we drag
     route = arg0.getPoint();
     //remove the previous shape drawn by dragging.
-    if (bT.getNumOfShape() > 1)
+    if (bT.getNumOfShape() >= 1)
       bT.removeFrontShape();
-    bT.addShape(start,route,route);
+    bT.addShape(start,route);
   }
 
   @Override
@@ -57,7 +53,7 @@ public class CanvasMouseController implements MouseMotionListener, MouseListener
   public void mouseReleased(MouseEvent arg0) 
   {
     end = arg0.getPoint();
-    bT.addShape(start,dummy,end);
+    bT.addShape(start,end);
   }
 
   @Override

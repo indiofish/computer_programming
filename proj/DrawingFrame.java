@@ -18,7 +18,6 @@ public class DrawingFrame extends JFrame {
   //Panels
   private Panel buttonPanel; 
   private Panel choicePanel;
-  private Panel textPanel;
 
   private JLabel titleLabel;
 
@@ -31,6 +30,8 @@ public class DrawingFrame extends JFrame {
   private String entity;
 
   private CanvasMouseController drawer;
+  private ButtonController button;
+  private ChoiceController choice;
 
   public DrawingFrame(String title, WhiteBoardService rmi)
   {
@@ -42,15 +43,15 @@ public class DrawingFrame extends JFrame {
     currentColor = Color.BLACK;
     fillState = true;
     rmiModule = rmi;
+
     //init all panels
     buttonPanel = new Panel();
-    textPanel = new Panel();
     choicePanel = new Panel();
     shapeContainer = new ShapeContainer();
 
-    new ButtonController(this);
+    button = new ButtonController(this);
     getContentPane().add("South",buttonPanel);
-    new ChoiceController(this);
+    choice = new ChoiceController(this);
     getContentPane().add("East",choicePanel);
 
 
@@ -58,14 +59,13 @@ public class DrawingFrame extends JFrame {
     getContentPane().add("North",titleLabel);
 
     drawer = new CanvasMouseController(this);
-
-    addWindowListener(new LocalWindowListener());
-    
     getContentPane().add("Center",shapeContainer);
     setShapeContainer(shapeContainer);
 
-    this.pack();
+    addWindowListener(new LocalWindowListener());
+    
 
+    this.pack();
     //show() deprecated, use setVisible(true) instead;
     validate();
     setVisible(true);
@@ -78,9 +78,9 @@ public class DrawingFrame extends JFrame {
   public int myGetShape() { return currentShape; }
   public void setShapeContainer(ShapeContainer s) { getContentPane().add(s); }
 
-  public void addShape(Point start, Point route, Point end)
+  public void addShape(Point start, Point end)
   { //parameter: left right corner of the shape?
-    Shape newShape = new Free(route);
+    Shape newShape = null;
 
     //default shape is a line(pixel);
     if (myGetShape() == new Shape().LINE)

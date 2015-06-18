@@ -45,7 +45,6 @@ public class ButtonController {
       else if (ae.getActionCommand().equals("CLEAR")){
         bT.removeAll();
       }
-
 		}
 	}
 }

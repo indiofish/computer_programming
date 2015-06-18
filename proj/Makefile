@@ -2,8 +2,8 @@ WHITE_BOARD:
 	javac *.java
 all: WHITE_BOARD
 
-run:
-	java WhiteBoardServiceImpl server localhost
+run ${entity}:
+	java WhiteBoardServiceImpl ${entity} localhost &
 	
 clean:
 	rm -rf *.class

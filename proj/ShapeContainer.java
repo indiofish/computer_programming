@@ -29,6 +29,6 @@ public class ShapeContainer extends Container implements java.io.Serializable {
 
 
   public Dimension getPreferredSize () {
-    return new Dimension (400,500);
+    return new Dimension (500,500);
   }
 }
