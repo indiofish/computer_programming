@@ -3,6 +3,8 @@ import java.util.StringTokenizer;
 import java.io.*;
 public class Ass2 
 {
+  final static String input = 
+    "+ C + o + m + p + u + t + e - + r - + P + r + o + g - + r + a + m + 1 + 5";
   //TODO add error catching.
   private static class MyStack<T>
   {
@@ -71,10 +73,9 @@ public class Ass2
   public static void main (String[] args) 
   {
     MyStack<Character> stk = new MyStack<>(100);
-    String test="+ C + o + m + p + u + t + e - + r - + P + r + o + g - + r + a + m + 1 + 5";
     String token = "";
     //space becomes the token for default
-    StringTokenizer tk = new StringTokenizer(test);
+    StringTokenizer tk = new StringTokenizer(input);
 
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
             new FileOutputStream("stack.txt"), "utf-8"))) 
@@ -90,12 +91,12 @@ public class Ass2
           writer.write("[pop] " + stk.pop()+"\n");
         }
       }
-    writer.write(stk.toString());
-    //writer.close();
-  }catch (IOException ex) {
-    System.out.println("Unable to Write to File");
-  }     
-  return;
-}
+      writer.write(stk.toString());
+      //writer.close();
+    }catch (IOException ex) {
+      System.out.println("Unable to Write to File");
+    }     
+    return;
+  }
 
 }

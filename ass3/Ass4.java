@@ -13,7 +13,6 @@ public class Ass4 {
 
     System.out.print(c + " is a ");
     //if char c is included in the String VOWEL
-    //append "" to make c a String
-    System.out.println(VOWEL.contains(c+"") ? "vowel." : "consonant.");
+    System.out.println(VOWEL.contains(Character.toString(c)) ? "vowel." : "consonant.");
   }
 }

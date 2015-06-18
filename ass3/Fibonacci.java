@@ -97,10 +97,10 @@ public class Fibonacci
     int length = Integer.parseInt(args[0]);
     FibonacciSeq fib = new FibonacciSeq(length);
     System.out.println(fib);
-    System.out.println(fib.get(15));
-    System.out.println(fib);
-    fib.setLength(11);
-    System.out.println(fib);
-    System.out.println(fib.get(10));
+    //System.out.println(fib.get(15));
+    //System.out.println(fib);
+    //fib.setLength(11);
+    //System.out.println(fib);
+    //System.out.println(fib.get(10));
   }
 }
